@@ -1,0 +1,40 @@
+mobile-angular-ui.core.sharedState is expose the homonymous service SharedState and a group of directives to access it.
+
+SharedState allows to use elementary angular or angularish directives to create interactive components.
+
+Ie.
+
+<div class="nav nav-tabs" ui-shared-state='activeTab'>
+  <a ui-set="{activeTab: 1}">Tab1</a>
+  <a ui-set="{activeTab: 2}">Tab2</a>
+  <a ui-set="{activeTab: 3}">Tab3</a>
+</div>
+<div class="tabs">
+  <div ui-if="activeTab == 1">Tab1</div>
+  <div ui-if="activeTab == 2">Tab2</div>
+  <div ui-if="activeTab == 3">Tab3</div>
+</div>
+Using SharedState you will be able to:
+
+Create interactive components without having to write javascript code
+Have your controller free from UI logic
+Separe ng-click triggering application logic from those having a visual effect only
+Export state of components to urls
+Easily make components comunicate each other
+Also note that:
+
+Data structures retaining statuses will stay outside angular scopes thus they are not evaluated against digest cycle until its necessary. Also although statuses are sort of global variables SharedState will take care of disposing them when no scopes are requiring them anymore.
+
+A set of ui-* directives are available to interact with SharedState module and will hopefully var you spare your controllers and your time for something that is more meaningful than this:
+
+$scope.activeTab = 1;
+
+$scope.setActiveTab = function(n) {
+  $scope.activeTab = n;
+};
+Usage
+
+Declare it as a dependency to your app unless you have already included some of its super-modules.
+
+angular.module('myApp', ['mobile-angular-ui.core.sharedState']);
+Use ui-shared-state directive to require/initialize a state from the target element scope
